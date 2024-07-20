@@ -1,0 +1,28 @@
+services:
+
+  php:
+    image: devilbox/php-fpm:8.2-work
+    volumes:
+      - ./:/app
+    working_dir: /app
+
+  mongo:
+    image: mongo:6.0.13
+    command: --replSet rs0
+    volumes:
+      - ./migrations/mongo:/migrations
+    ports:
+      - '27017:27017'
+    restart: on-failure
+    healthcheck:
+      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo -u user -p password --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
+
+  mongo-init:
+    image: mongo:6
+    depends_on:
+      - mongo
+    volumes:
+      - ./.docker/mongo/init.sh:/init.sh:ro
+    command: /bin/sh -c "/init.sh"
