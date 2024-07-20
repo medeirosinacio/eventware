@@ -10,7 +10,10 @@ final class DebugCommand
     {
         $event = (new \Eluceo\iCal\Domain\Entity\Event())
             ->setSummary('Christmas Eve')
-            ->setDescription('Lorem Ipsum Dolor...')
+            ->setDescription('Lorem Ipsum Dolor... Test Sync')
+            ->setLocation(
+                new \Eluceo\iCal\Domain\ValueObject\Location('Porto Alegre, RS, Brazil')
+            )
             ->setOccurrence(
                 new \Eluceo\iCal\Domain\ValueObject\SingleDay(
                     new \Eluceo\iCal\Domain\ValueObject\Date(
