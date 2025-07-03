@@ -1,69 +1,70 @@
 {
-  "name": "medeirosinacio/eventware",
-  "version": "0.1.0",
-  "type": "library",
-  "description": "The Event Syncer is a platform designed to streamline the management of your personal schedule by enabling the automatic synchronization of events from multiple sources.",
-  "keywords": [
-    "php",
-    "eventware",
-    "event",
-    "calendar",
-    "synchronization"
-  ],
-  "homepage": "https://github.com/medeirosinacio/eventware",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Douglas Medeiros",
-      "email": "eu@douglasmedeiros.dev"
-    }
-  ],
-  "require": {
-    "php": "^8.3",
-    "eluceo/ical": "^2.14"
-  },
-  "require-dev": {
-    "laravel/pint": "^1.8",
-    "pestphp/pest": "^2.5.0",
-    "phpstan/phpstan": "^1.10.13",
-    "rector/rector": "^0.15.24",
-    "symfony/var-dumper": "^6.2.8"
-  },
-  "autoload": {
-    "psr-4": {
-      "Eventware\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Eventware\\Tests\\": "tests/"
-    }
-  },
-  "minimum-stability": "stable",
-  "prefer-stable": true,
-  "config": {
-    "sort-packages": true,
-    "preferred-install": "dist",
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
-    }
-  },
-  "scripts": {
-    "refacto": "rector",
-    "lint": "pint",
-    "test:refacto": "rector --dry-run",
-    "test:lint": "pint --test",
-    "test:types": "phpstan analyse --ansi",
-    "test:unit": "pest --colors=always",
-    "ci": [
-      "@test:refacto",
-      "@test:lint",
-      "@test:types",
-      "@test:unit"
+    "name": "medeirosinacio/eventware",
+    "version": "0.1.0",
+    "type": "library",
+    "description": "The Event Syncer is a platform designed to streamline the management of your personal schedule by enabling the automatic synchronization of events from multiple sources.",
+    "keywords": [
+        "php",
+        "eventware",
+        "event",
+        "calendar",
+        "synchronization"
     ],
-    "fix": [
-      "@refacto",
-      "@lint"
-    ]
-  }
+    "homepage": "https://github.com/medeirosinacio/eventware",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Douglas Medeiros",
+            "email": "eu@douglasmedeiros.dev"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "illuminate/http": "^12.19.3",
+        "eluceo/ical": "^2.14"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.8",
+        "pestphp/pest": "^2.5.0",
+        "phpstan/phpstan": "^1.10.13",
+        "rector/rector": "^0.15.24",
+        "symfony/var-dumper": "^6.2.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Eventware\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Eventware\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "refacto": "rector",
+        "lint": "pint",
+        "test:refacto": "rector --dry-run",
+        "test:lint": "pint --test",
+        "test:types": "phpstan analyse --ansi",
+        "test:unit": "pest --colors=always",
+        "ci": [
+            "@test:refacto",
+            "@test:lint",
+            "@test:types",
+            "@test:unit"
+        ],
+        "fix": [
+            "@refacto",
+            "@lint"
+        ]
+    }
 }
