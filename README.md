@@ -1,6 +1,6 @@
 # Eventware
 
-The Event Syncer simplifies personal schedule management by automatically syncing events from various sources to your
+The EventWare simplifies personal schedule management by automatically syncing events from various sources to your
 preferred calendar tool. Stay updated on sports, tech, UFC, and Formula 1 events effortlessly with our intuitive
 platform. Say goodbye to missed appointments – Event Syncer keeps you in the loop.
 
@@ -80,55 +80,6 @@ cd eventware
 
 ```bash
 make setup
-```
-
-## 📂 Estrutura do Projeto
-
-```bash
-sorteio/
-├── docker-compose.yml       # Configuração dos serviços Docker
-├── Dockerfile               # Imagem PHP customizada
-├── docker-entrypoint.sh     # Script de inicialização
-├── docker/
-│   └── nginx/
-│       └── nginx.conf       # Configuração do Nginx
-└── php.ini                  # Configurações customizadas do PHP
-```
-
-## 🐳 Comandos Docker
-
-Para iniciar o servidor:
-
-```bash
-docker-compose up -d
-```
-
-Para parar e remover os containers:
-
-```bash
-docker-compose down
-```
-
-Entrar no container da aplicação:
-
-```bash
-docker-compose exec app bash
-```
-
-## Observações
-
-Certifique-se de estar no diretório correto do projeto antes de executar os comandos.
-
-Caso precise ver os logs dos containers, utilize:
-
-```bash
-docker-compose logs -f
-```
-
-Para reconstruir a imagem após alterações no Dockerfile, use:
-
-```bash
-docker-compose up -d --build --force-recreate
 ```
 
 ## 🌐 Acessando a Aplicação

@@ -19,7 +19,7 @@ setup: ## Setup the project
 	$(APP_COMPOSER) install --no-interaction --no-plugins --no-scripts
 	$(APP_NPM) install && $(APP_NPM) run build
 	$(APP_PHP) artisan key:generate
-	$(APP) touch /app/database/database.sqlite
+	$(APP) touch /app/storage/database.sqlite
 	$(APP_PHP) artisan migrate --force
 
 container: ## Access the application container
@@ -30,6 +30,9 @@ ci: ## Run continuous integration tests
 
 test: ## Run the test suite
 	$(APP_COMPOSER) test
+
+fix: ## Run code style fixer
+	$(APP_COMPOSER) fix
 
 check-docker: ## Check if Docker is installed
 	@docker --version > /dev/null 2>&1 || (echo "Docker is not installed. Please install Docker and try again." && exit 1)
