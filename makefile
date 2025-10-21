@@ -3,31 +3,35 @@
 .SILENT: clean
 .PHONY: all
 .DEFAULT_GOAL := help
-PHP_VERSION := 83
-PHP_CONTAINER := opencodeco/phpctl:php$(PHP_VERSION)-devcontainer
+
+PHP = docker run --rm -v $(PWD):/var/www/html -w /var/www/html php:8.4-fpm php
+APP = docker-compose exec app
+APP_COMPOSER = docker-compose exec app composer
+APP_PHP = docker-compose exec app php
+APP_NPM = docker-compose exec app npm
 
 ##@ Development resources
 
 setup: ## Setup the project
 	@make check-docker
-	docker stop $(docker ps -aq) || true
-	make install-dependencies
-	make playground
+	@cp .env.example .env
+	mkdir -p ./storage/framework/cache
+	mkdir -p ./storage/framework/sessions
+	mkdir -p ./storage/framework/views
+	mkdir -p ./storage/app/public
+	mkdir -p ./bootstrap/cache
+	docker-compose up -d --build --force-recreate
+	$(APP_COMPOSER) install --no-interaction --no-plugins --no-scripts
+	$(APP_NPM) install && $(APP_NPM) run build
+	$(APP_PHP) artisan key:generate
+	$(APP) touch /var/www/html/database/database.sqlite
+	$(APP_PHP) artisan migrate --force
 
-playground: ## Start a PHP playground dockerized environment
-	@make check-docker
-	@docker run --rm -it -v ./:/app -w /app $(PHP_CONTAINER) bash
+container: ## Access the application container
+	docker-compose exec -it  app bash
 
-development: ## Start a PHP playground dockerized environment
-	@make check-docker
-	@docker run --rm -it -v ./:/app -w /app $(PHP_CONTAINER) php bin/console.php dev:eventware
-
-install-dependencies: ## Install dependencies
-	@make check-docker
-	@docker run --rm -it -v ./:/app -w /app $(PHP_CONTAINER) composer install
-
-ci: ## Run the CI pipeline
-	@docker run --rm -it -v ./:/app -w /app $(PHP_CONTAINER) composer ci
+ci: ## Run continuous integration tests
+	make composer ci
 
 check-docker: ## Check if Docker is installed
 	@docker --version > /dev/null 2>&1 || (echo "Docker is not installed. Please install Docker and try again." && exit 1)
