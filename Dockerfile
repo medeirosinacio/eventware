@@ -1,6 +1,6 @@
 FROM php:8.4-fpm
 
-WORKDIR /var/www/html
+WORKDIR /app
 
 # Instalar dependencias necesarias
 RUN apt-get update && apt-get install -y \

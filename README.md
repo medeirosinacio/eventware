@@ -140,5 +140,5 @@ Após iniciar os containers, acesse:
 ## 📝 Notas Importantes
 
 - Certifique-se de que as portas 8080 e 9000 estejam disponíveis
-- Os volumes mapeiam o código local para /var/www/html no container
+- Os volumes mapeiam o código local para /app no container
 - As permissões dos diretórios storage e bootstrap/cache são configuradas automaticamente

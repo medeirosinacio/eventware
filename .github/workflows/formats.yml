@@ -36,11 +36,15 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist
+
       - name: Coding Linter Checks
         run: composer test:lint
+
       - name: Coding PHPStan Types Check
         run: composer test:types
+
       - name: Coding PHPMess Check
         run: composer test:mess
+
       - name: Coding Rector Check
         run: composer test:refacto

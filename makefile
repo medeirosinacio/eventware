@@ -4,7 +4,7 @@
 .PHONY: all
 .DEFAULT_GOAL := help
 
-PHP = docker run --rm -v $(PWD):/var/www/html -w /var/www/html php:8.4-fpm php
+PHP = docker run --rm -v $(PWD):/app -w /app php:8.4-fpm php
 APP = docker-compose exec app
 APP_COMPOSER = docker-compose exec app composer
 APP_PHP = docker-compose exec app php
@@ -19,7 +19,7 @@ setup: ## Setup the project
 	$(APP_COMPOSER) install --no-interaction --no-plugins --no-scripts
 	$(APP_NPM) install && $(APP_NPM) run build
 	$(APP_PHP) artisan key:generate
-	$(APP) touch /var/www/html/database/database.sqlite
+	$(APP) touch /app/database/database.sqlite
 	$(APP_PHP) artisan migrate --force
 
 container: ## Access the application container
