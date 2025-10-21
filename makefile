@@ -15,11 +15,6 @@ APP_NPM = docker-compose exec app npm
 setup: ## Setup the project
 	@make check-docker
 	@cp .env.example .env
-	mkdir -p ./storage/framework/cache
-	mkdir -p ./storage/framework/sessions
-	mkdir -p ./storage/framework/views
-	mkdir -p ./storage/app/public
-	mkdir -p ./bootstrap/cache
 	docker-compose up -d --build --force-recreate
 	$(APP_COMPOSER) install --no-interaction --no-plugins --no-scripts
 	$(APP_NPM) install && $(APP_NPM) run build
@@ -31,7 +26,10 @@ container: ## Access the application container
 	docker-compose exec -it  app bash
 
 ci: ## Run continuous integration tests
-	make composer ci
+	$(APP_COMPOSER) ci
+
+test: ## Run the test suite
+	$(APP_COMPOSER) test
 
 check-docker: ## Check if Docker is installed
 	@docker --version > /dev/null 2>&1 || (echo "Docker is not installed. Please install Docker and try again." && exit 1)

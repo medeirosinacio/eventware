@@ -37,14 +37,14 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Eventware\\": "app/",
+            "Eventware\\Database\\Factories\\": "database/factories/",
+            "Eventware\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Eventware\\Tests\\": "tests/"
         }
     },
     "scripts": {
