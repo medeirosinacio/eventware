@@ -72,14 +72,14 @@ platform. Say goodbye to missed appointments – Event Syncer keeps you in the l
 1. Clone o repositório:
 
 ```bash
-git clone git@github.com:medeirosnacio/eventware.git
-cd eventware
+    git clone git@github.com:medeirosnacio/eventware.git
+    cd eventware
 ```
 
-1. Copie o arquivo de ambiente:
+ 1. Rode o comando abaixo para configurar e iniciar os containers:
 
 ```bash
-make setup
+    make setup
 ```
 
 ## 🌐 Acessando a Aplicação
