@@ -1,4 +1,4 @@
-name: Formats
+name: Code Analysis and Formatting
 
 on: [ 'push' ]
 
@@ -13,7 +13,7 @@ jobs:
         php: [ 8.4 ]
         dependency-version: [ prefer-stable ]
 
-    name: Formats PHP${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
+    name: PHP${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
 
     steps:
 
