@@ -22,4 +22,5 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-/storage/database.sqlite
+/storage/**
+!/storage/**/.gitkeep
