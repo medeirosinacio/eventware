@@ -1,6 +1,6 @@
-name: Formats
+name: Code Quality Checks
 
-on: [ 'push', 'pull_request' ]
+on: [ 'push' ]
 
 jobs:
   ci:
@@ -10,10 +10,10 @@ jobs:
       fail-fast: true
       matrix:
         os: [ ubuntu-latest ]
-        php: [ 8.3 ]
+        php: [ 8.4 ]
         dependency-version: [ prefer-stable ]
 
-    name: Formats P${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
+    name: PHP${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
 
     steps:
 
@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Cache dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ~/.composer/cache/files
           key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
@@ -37,8 +37,14 @@ jobs:
       - name: Install Composer dependencies
         run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist
 
-      - name: Coding Refacto Checks
-        run: composer test:refacto
-
-      - name: Coding Style Checks
+      - name: Coding Linter Checks
         run: composer test:lint
+
+      - name: Coding PHPStan Types Check
+        run: composer test:types
+
+      - name: Coding PHPMess Check
+        run: composer test:mess
+
+      - name: Coding Rector Check
+        run: composer test:refacto

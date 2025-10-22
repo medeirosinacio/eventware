@@ -1,6 +1,6 @@
-name: Tests
+name: Test Suite
 
-on: [ 'push', 'pull_request' ]
+on: [ 'push' ]
 
 jobs:
   ci:
@@ -9,10 +9,10 @@ jobs:
       fail-fast: true
       matrix:
         os: [ ubuntu-latest ]
-        php: [ 8.3 ]
+        php: [ 8.4 ]
         dependency-version: [ prefer-stable ]
 
-    name: Tests P${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
+    name: PHP${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
 
     steps:
 
@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Cache dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ~/.composer/cache/files
           key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
@@ -35,5 +35,11 @@ jobs:
       - name: Install Composer dependencies
         run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist
 
-      - name: Unit Tests
-        run: php ./vendor/bin/pest
+      - name: Setup Application
+        run: cp .env.example .env &&
+          php artisan key:generate &&
+          touch ./storage/database.sqlite &&
+          php artisan migrate --force
+
+      - name: Run Tests Suite
+        run: composer test

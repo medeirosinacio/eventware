@@ -1,69 +1,103 @@
 {
-  "name": "medeirosinacio/eventware",
-  "version": "0.1.0",
-  "type": "library",
-  "description": "The Event Syncer is a platform designed to streamline the management of your personal schedule by enabling the automatic synchronization of events from multiple sources.",
-  "keywords": [
-    "php",
-    "eventware",
-    "event",
-    "calendar",
-    "synchronization"
-  ],
-  "homepage": "https://github.com/medeirosinacio/eventware",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Douglas Medeiros",
-      "email": "eu@douglasmedeiros.dev"
-    }
-  ],
-  "require": {
-    "php": "^8.3",
-    "eluceo/ical": "^2.14"
-  },
-  "require-dev": {
-    "laravel/pint": "^1.8",
-    "pestphp/pest": "^2.5.0",
-    "phpstan/phpstan": "^1.10.13",
-    "rector/rector": "^0.15.24",
-    "symfony/var-dumper": "^6.2.8"
-  },
-  "autoload": {
-    "psr-4": {
-      "Eventware\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Eventware\\Tests\\": "tests/"
-    }
-  },
-  "minimum-stability": "stable",
-  "prefer-stable": true,
-  "config": {
-    "sort-packages": true,
-    "preferred-install": "dist",
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
-    }
-  },
-  "scripts": {
-    "refacto": "rector",
-    "lint": "pint",
-    "test:refacto": "rector --dry-run",
-    "test:lint": "pint --test",
-    "test:types": "phpstan analyse --ansi",
-    "test:unit": "pest --colors=always",
-    "ci": [
-      "@test:refacto",
-      "@test:lint",
-      "@test:types",
-      "@test:unit"
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "medeirosinacio/eventware",
+    "type": "project",
+    "description": "The EventWare is a platform designed to streamline the management of your personal schedule by enabling the automatic synchronization of events from multiple sources.",
+    "keywords": [
+        "php",
+        "eventware",
+        "event",
+        "calendar",
+        "synchronization"
     ],
-    "fix": [
-      "@refacto",
-      "@lint"
-    ]
-  }
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Douglas Medeiros",
+            "email": "eu@douglasmedeiros.dev"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^12.0",
+        "laravel/tinker": "^2.10.1",
+        "eluceo/ical": "^2.14"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/pail": "^1.2.2",
+        "laravel/pint": "^1.24",
+        "laravel/sail": "^1.41",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "phpstan/phpstan": "^1.10.13",
+        "phpunit/phpunit": "^11.5.3",
+        "rector/rector": "^1.2",
+        "phpmd/phpmd": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "Eventware\\": "app/",
+            "Eventware\\Database\\Factories\\": "database/factories/",
+            "Eventware\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Eventware\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ],
+        "refacto": "rector",
+        "lint": "pint",
+        "test:refacto": "rector --dry-run",
+        "test:lint": "pint --test",
+        "test:types": "phpstan analyse --ansi",
+        "test:mess": "phpmd app ansi phpmd.xml",
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
+        ],
+        "ci": [
+            "@test:lint",
+            "@test:types",
+            "@test:mess",
+            "@test:refacto",
+            "@test"
+        ],
+        "fix": [
+            "@refacto",
+            "@lint"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }

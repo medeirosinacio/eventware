@@ -1,6 +1,6 @@
-# Event-Syncer
+# Eventware
 
-The Event Syncer simplifies personal schedule management by automatically syncing events from various sources to your
+The EventWare simplifies personal schedule management by automatically syncing events from various sources to your
 preferred calendar tool. Stay updated on sports, tech, UFC, and Formula 1 events effortlessly with our intuitive
 platform. Say goodbye to missed appointments – Event Syncer keeps you in the loop.
 
@@ -61,3 +61,35 @@ platform. Say goodbye to missed appointments – Event Syncer keeps you in the l
 - https://github.com/markuspoerschke/iCal
 - https://icalendar.org/
 - https://groups.google.com/g/sabredav-discuss/c/-CdR7z4PX-I?pli=1
+
+## 📋 Pré-requisitos
+
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+## 🚀 Instalação
+
+1. Clone o repositório:
+
+```bash
+    git clone git@github.com:medeirosnacio/eventware.git
+    cd eventware
+```
+
+ 1. Rode o comando abaixo para configurar e iniciar os containers:
+
+```bash
+    make setup
+```
+
+## 🌐 Acessando a Aplicação
+
+Após iniciar os containers, acesse:
+
+> Aplicação: http://localhost:8080
+
+## 📝 Notas Importantes
+
+- Certifique-se de que as portas 8080 e 9000 estejam disponíveis
+- Os volumes mapeiam o código local para /app no container
+- As permissões dos diretórios storage e bootstrap/cache são configuradas automaticamente
