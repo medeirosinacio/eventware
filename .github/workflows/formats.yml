@@ -1,4 +1,4 @@
-name: Code Analysis and Formatting
+name: Code Quality Checks
 
 on: [ 'push' ]
 
