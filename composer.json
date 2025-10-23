@@ -18,10 +18,11 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
+        "eluceo/ical": "^2.14",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "eluceo/ical": "^2.14"
+        "symfony/dom-crawler": "^7.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

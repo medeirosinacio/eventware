@@ -3,6 +3,8 @@
 .SILENT: clean
 .PHONY: all
 .DEFAULT_GOAL := help
+.DEFAULT:
+	@: # Do nothing for unknown targets
 
 PHP = docker run --rm -v $(PWD):/app -w /app php:8.4-fpm php
 APP = docker-compose exec app
@@ -24,6 +26,9 @@ setup: ## Setup the project
 setup-database: ## Setup the database
 	echo '' > ./storage/database.sqlite
 	$(APP_PHP) artisan migrate --force
+
+php: ## Run a PHP command inside the application container. Usage: make php <command>
+	docker-compose exec app bash -c "php $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))"
 
 container: ## Access the application container
 	docker-compose exec -it  app bash

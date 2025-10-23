@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eventware\Console\Commands\Development;
+namespace Eventware\Presentation\Commands\Development;
 
 use DateTimeImmutable;
 use Eluceo\iCal\Domain\Entity\Calendar;
