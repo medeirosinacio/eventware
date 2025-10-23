@@ -19,7 +19,10 @@ setup: ## Setup the project
 	$(APP_COMPOSER) install --no-interaction --no-plugins --no-scripts
 	$(APP_NPM) install && $(APP_NPM) run build
 	$(APP_PHP) artisan key:generate
-	$(APP) touch /app/storage/database.sqlite
+	@make setup-database
+
+setup-database: ## Setup the database
+	echo '' > ./storage/database.sqlite
 	$(APP_PHP) artisan migrate --force
 
 container: ## Access the application container
